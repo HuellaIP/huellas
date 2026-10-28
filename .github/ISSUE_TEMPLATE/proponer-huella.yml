@@ -1,0 +1,123 @@
+name: Proponer una huella
+description: Avisá qué dispositivo vas a capturar, antes de abrir el PR con la huella.
+title: "[Huella] <fabricante> <modelo> <firmware>"
+labels: ["huella-nueva"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por proponer una huella. Antes de seguir, leé [CONTRIBUTING.md](https://github.com/huellaip/huellas/blob/main/CONTRIBUTING.md).
+
+        **No adjuntes** capturas, logs crudos, binarios, APKs, direcciones MAC completas, números de serie ni cuentas. Solo metadatos agregados.
+  - type: input
+    id: fabricante
+    attributes:
+      label: Fabricante
+      description: Como figura en la etiqueta o en el sistema del equipo. Si no tiene marca clara, poné "genérico".
+      placeholder: Fabricante Ejemplo
+    validations:
+      required: true
+  - type: input
+    id: modelo
+    attributes:
+      label: Modelo
+      placeholder: X1
+    validations:
+      required: true
+  - type: input
+    id: firmware
+    attributes:
+      label: Firmware
+      description: La versión que informa el equipo.
+      placeholder: 2.4.1
+    validations:
+      required: true
+  - type: dropdown
+    id: categoria
+    attributes:
+      label: Categoría
+      description: Si no encaja en ninguna, elegí "otra" y explicalo abajo.
+      options:
+        - televisor
+        - streaming
+        - tv-box
+        - camara
+        - impresora
+        - router
+        - asistente
+        - enchufe
+        - electrodomestico
+        - otra
+    validations:
+      required: true
+  - type: dropdown
+    id: origen
+    attributes:
+      label: Origen de la captura
+      options:
+        - Laboratorio de HuellaIP
+        - Laboratorio que replica la maqueta
+        - Datos agregados de un ISP
+        - Otro (explicalo abajo)
+    validations:
+      required: true
+  - type: dropdown
+    id: estados
+    attributes:
+      label: Estados que vas a capturar
+      multiple: true
+      options:
+        - encendido
+        - reposo
+        - activo
+        - interaccion
+    validations:
+      required: true
+  - type: dropdown
+    id: confianza
+    attributes:
+      label: Nivel de confianza esperado
+      options:
+        - baja
+        - media
+        - alta
+    validations:
+      required: true
+  - type: dropdown
+    id: etiqueta
+    attributes:
+      label: Etiqueta preliminar
+      options:
+        - benigno
+        - sospechoso
+        - malicioso
+        - Todavía no sé
+    validations:
+      required: true
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto
+      description: Por qué este dispositivo, en qué condiciones lo vas a capturar y, si ya viste algo raro, qué viste. Solo metadatos agregados, por ejemplo puertos, cantidad de destinos, conexiones nuevas por segundo, horarios o ASN.
+    validations:
+      required: true
+  - type: textarea
+    id: ioc
+    attributes:
+      label: Fuente del indicador de compromiso (IOC)
+      description: Obligatoria si la etiqueta preliminar es "malicioso". Enlace al informe o a la base que lo documenta.
+    validations:
+      required: false
+  - type: checkboxes
+    id: confirmaciones
+    attributes:
+      label: Confirmaciones
+      options:
+        - label: Leí CONTRIBUTING.md y las líneas rojas del proyecto.
+          required: true
+        - label: Si el equipo puede estar comprometido, lo capturo solo en un segmento de cuarentena con filtros de salida probados.
+          required: true
+        - label: No voy a publicar capturas, logs crudos, direcciones MAC completas, números de serie ni cuentas.
+          required: true
+        - label: La captura es mía, o tengo el consentimiento de quien la hace y de los hogares u oficinas involucrados.
+          required: true
