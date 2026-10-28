@@ -16,13 +16,13 @@ This repository holds the published *huellas* (Spanish for "footprints") of the 
 Una huella es un archivo JSON que cumple dos cosas a la vez:
 
 - Es un archivo **MUD** válido ([RFC 8520](https://www.rfc-editor.org/info/rfc8520)): cualquier herramienta que entienda MUD puede leer los destinos permitidos.
-- Lleva la extensión **`huellaip-perfil`**, con las métricas de cada estado de uso (`encendido`, `reposo`, `activo` e `interaccion`):
+- Lleva, dentro del contenedor MUD, la extensión **`huellaip-perfil`**, con las métricas de cada estado de uso (`encendido`, `reposo`, `activo` e `interaccion`):
   - sesiones concurrentes;
   - bytes subidos y bajados por hora;
   - conexiones nuevas por minuto;
   - periodicidad de los keepalives;
   - destinos esperados (dominios y ASN);
-  - versión de TLS.
+  - versiones de TLS observadas.
 
 El formato se define en el repo [`huellaip/huellaip`](https://github.com/huellaip/huellaip), en `especificacion/`. Si este README y la especificación dicen cosas distintas, manda la especificación.
 
@@ -89,7 +89,7 @@ Las huellas se publican bajo [Creative Commons Atribución 4.0 Internacional](LI
 
 Cómo atribuir una huella:
 
-> Huella de *\<fabricante\> \<modelo\>*, firmware *\<versión\>*. HuellaIP, aportada por *\<contribuyente\>*. CC-BY-4.0. https://github.com/huellaip/huellas
+> Huella de *\<fabricante\> \<modelo\>*, firmware *\<versión\>*. HuellaIP, aportada por *\<aportante\>*. CC-BY-4.0. https://github.com/huellaip/huellas
 
 Las huellas se ofrecen tal como están, sin garantías, como dice la licencia.
 
