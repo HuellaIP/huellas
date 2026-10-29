@@ -28,7 +28,7 @@ flowchart LR
    - el equipo se usa con la configuración de fábrica y solo con cuentas de laboratorio;
    - el firmware se registra antes y después de cada captura; si cambia, corresponde otra huella;
    - cualquier equipo dudoso, incluido todo TV box genérico, se captura en un segmento de cuarentena con filtros probados.
-3. **Armá el JSON** según la especificación del formato. Cuando esté el generador de [`huellaip/huellaip`](https://github.com/huellaip/huellaip), se arma con el generador.
+3. **Armá el JSON** según la [especificación del formato](https://github.com/huellaip/huellaip/blob/main/especificacion/formato-huella-v0.md). Los [ejemplos válidos](https://github.com/huellaip/huellaip/tree/main/especificacion/ejemplos) sirven de punto de partida. Cuando esté el generador de [`huellaip/huellaip`](https://github.com/huellaip/huellaip), se arma con el generador.
 4. **Validalo** contra el esquema. El comando se documenta acá cuando el validador esté listo; la validación también va a correr sola en cada PR.
 5. **Abrí un PR** con el archivo en la [ruta que corresponde](#dónde-va-el-archivo), completá la plantilla y enlazá el issue.
 6. **Respondé la revisión** con commits nuevos y firmados.
@@ -60,14 +60,14 @@ huellas/<categoria>/<fabricante>/<modelo>/<firmware>.json
 
 ## Qué tiene que tener una huella
 
-Según el borrador v0 del formato (si algo difiere, manda la especificación):
+Según el [formato v0](https://github.com/huellaip/huellaip/blob/main/especificacion/formato-huella-v0.md) (si algo difiere, manda la especificación):
 
-- **Parte MUD:** fabricante (`mfg-name`), modelo (`model-name`), firmware (`firmware-rev`), fecha de actualización y las listas de acceso con los destinos esperados.
-- **Extensión `huellaip-perfil`:**
-  - versión del formato;
-  - etiqueta;
-  - datos de la captura: país, fecha, quién la aporta y nivel de confianza;
-  - métricas de cada estado capturado;
+- **Parte MUD:** fabricante (`mfg-name`), modelo (`model-name`), firmware (`firmware-rev`), `mud-url`, fecha de actualización y las listas de acceso con los destinos esperados. Si un destino usa TLS, su regla lleva el perfil TLS del RFC 9761.
+- **Extensión `huellaip-perfil:perfil`**, dentro del contenedor MUD:
+  - versión del formato, categoría y etiqueta;
+  - datos de la captura: país, fechas de inicio y fin, `aportante` y nivel de confianza;
+  - métricas de cada estado capturado, con el tamaño de la muestra;
+  - los estados no capturados, con el motivo;
   - licencia (`CC-BY-4.0`).
 
 Si falta un estado, la huella lo dice y el PR explica por qué. Por ejemplo, un equipo sin app de control no tiene estado `interaccion`.
@@ -99,7 +99,7 @@ Antes de abrir el PR, revisá que el archivo **no** tenga:
 - números de serie, IMEI ni identificadores del equipo;
 - cuentas, correos, nombres de usuario ni otros identificadores personales;
 - direcciones IP privadas como destinos, ni la IP pública del laboratorio o de quien aporta;
-- dominios con un identificador único del equipo o de la cuenta. Algunos servicios usan un subdominio distinto por equipo. Si aparece uno, no lo publiques tal cual: marcalo en el PR para resolver entre todos cómo representarlo.
+- dominios con un identificador único del equipo o de la cuenta. Algunos servicios usan un subdominio distinto por equipo: reemplazá esa etiqueta por un comodín (`*.dispositivos.fabricante.com`). El comodín va solo en los destinos de la extensión, no en las listas de acceso.
 
 Nunca se suben capturas, logs crudos, binarios ni APKs, ni siquiera como adjuntos de un issue o un PR.
 
